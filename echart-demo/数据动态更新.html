@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据的动态更新示例</title>
+    <style>
+        html {
+            height: 100%;
+            width: 100%;
+
+        }
+        body{
+            height:100%;
+            width:100%;
+        }
+        .myEcharts {
+            width: 100%;
+            height: 100%;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="main" class="myEcharts"></div>
+    <script src="echarts.js"></script>
+    <script>
+        var myCharts = echarts.init(document.getElementById("main"));
+        option = {
+            xAxis:{
+                type:'category',
+                boundaryGap:false,
+                data:date
+            },
+            yAxis:{
+                boundaryGap:[0,'50%'],
+                type:'value'
+            },
+            series:[{
+                name:'成交',
+                type:'line',
+                smooth:true,
+                symbol:'none',
+                stack:'a',
+                areaStyle:{
+                    normal:{}
+                },
+                data:date
+            }]
+        };
+        myCharts.setOption(option);
+        var base = new Date(2014, 9, 3);
+        var oneDay = 24 * 3600 * 1000;
+        var date = [];
+
+        var data = [Math.random() * 150];
+        var now = new Date(base);
+
+        function addData(shift) {
+            now = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/');
+            date.push(now);
+            data.push((Math.random() - 0.4) * 10 + data[data.length - 1]);
+
+            if(shift) {
+                data.shift();
+                data.shift();
+            }
+
+            now = new Date(new Date(now) + oneDay);
+        }
+        for(var i = 1; i < 100; i++) {
+            addData(true);
+        }
+        setInterval(function () {
+            addData(true);
+            myCharts.setOption({
+                xAxis: {
+                    data: date
+                },
+                series: [{
+                    name: '成交',
+                    data: date
+                }]
+            });
+        }, 1000);
+    </script>
+</body>
+</html>
