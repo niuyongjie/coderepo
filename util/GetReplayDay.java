@@ -8,13 +8,13 @@ import java.text.SimpleDateFormat;
 */
 public class GetReplayDay{
 	public static void main(String[] args){
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(new Date());
-		System.out.println(calendar.getTime());		
-		Date date = calendar.getTime();
 		GetReplayDay getReplayDay = new GetReplayDay();
 		int[] days = {0,1,2,5,8,14};
 		for(int i = 0; i < days.length; i++){
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(new Date());
+			Date date = calendar.getTime();
+
 			calendar.add(Calendar.DATE,days[i]);
 			System.out.println(getReplayDay.formatDate(calendar.getTime()));
 		}		
