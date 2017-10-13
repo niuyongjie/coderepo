@@ -19,3 +19,6 @@ hs_err_pid*
 *.idea
 out/
 target	
+
+# java class file
+classes/
