@@ -47,7 +47,7 @@ fun main(args: Array<String>) {
     //</editor-fold>
 
     //<editor-fold desc="is 操作符判断是否属于某个类型">
-    fun printLength(obj: Any){
+    fun printLength(obj: Any) {
         println("'$obj' string length is ${getStringLength(obj) ?: "... err, not a string"}")
     }
     printLength("Incomprehensibilities")
@@ -55,6 +55,60 @@ fun main(args: Array<String>) {
     printLength(listOf(Any()))
     //</editor-fold>
 
+    //<editor-fold desc="循环示例">
+    val items = listOf<String>("apple", "banna", "kiwi")
+    for (item in items) {
+        println(item)
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="循环示例2">
+    for (index in items.indices) {
+        println("item at $index is ${items[index]}")
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="循环示例2">
+    var index = 0
+    while (index < items.size) {
+        println("item at $index is ${items[index]}")
+        index++
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="分支语句示例">
+    println(describe(1))
+    println(describe("Hello"))
+    println(describe(1000L))
+    println(describe(2))
+    println(describe("other"))
+    //</editor-fold>
+
+    //<editor-fold desc="通过in操作符判断范围">
+    val x1 = 10
+    val y = 9
+    if (x1 in 1 .. y + 1) {
+        println("fits in range")
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="通过in操作符判断范围">
+    val list = listOf<String>("a", "b", "c")
+    if (-1 in 0..list.lastIndex) {
+        println("-1 is out of range")
+    }
+    if (list.size !in list.indices) {
+        println(list.size)
+        println(list.indices)
+        println("list size is out of valid list indices range too")
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="循环迭代范围">
+    for( x in 0..5){
+        println(x)
+    }
+    //</editor-fold>
 }
 
 
@@ -95,16 +149,16 @@ fun stringTemplate() {
     条件语句
  */
 fun maxOf(a: Int, b: Int): Int {
-   if(a > b)
-       return a
+    if (a > b)
+        return a
     else
-       return b
+        return b
 }
 
 /*
     条件语句--表达式形式
  */
-fun maxOfWithExpression(a: Int, b: Int) = if(a > b) a else b
+fun maxOfWithExpression(a: Int, b: Int) = if (a > b) a else b
 
 /*
     返回类型可能会空的情况
@@ -116,7 +170,7 @@ fun parseInt(str: String): Int? {
 /*
     如何判断null
  */
-fun printProduct(arg1: String, arg2: String){
+fun printProduct(arg1: String, arg2: String) {
     val x = parseInt(arg1)
     val y = parseInt(arg2)
 
@@ -131,7 +185,19 @@ fun printProduct(arg1: String, arg2: String){
     is 操作符来判断是否属于某个类型
  */
 fun getStringLength(obj: Any): Int? {
-    if(obj is String)
-        return obj.length
+    if (obj is String) return obj.length
     return null
 }
+
+/*
+    when条件分之语句示例
+ */
+fun describe(obj: Any): String =
+        when (obj) {
+            1 -> "One"
+            "Hello" -> "Greeting"
+            is Long -> "Long"
+            !is String -> "Is Not String"
+            else -> "Unknown"
+        }
+
