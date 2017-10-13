@@ -39,6 +39,22 @@ fun main(args: Array<String>) {
     println("max of 0 and 42 is ${maxOf(0, 42)}")
     println("max of With Expression 0 and 42 is ${maxOfWithExpression(0, 42)}")
     //</editor-fold>
+
+    //<editor-fold desc="null判断和返回">
+    printProduct("6", "7")
+    printProduct("a", "7")
+    printProduct("a", "b")
+    //</editor-fold>
+
+    //<editor-fold desc="is 操作符判断是否属于某个类型">
+    fun printLength(obj: Any){
+        println("'$obj' string length is ${getStringLength(obj) ?: "... err, not a string"}")
+    }
+    printLength("Incomprehensibilities")
+    printLength(1000)
+    printLength(listOf(Any()))
+    //</editor-fold>
+
 }
 
 
@@ -75,6 +91,9 @@ fun stringTemplate() {
     println(s2)
 }
 
+/*
+    条件语句
+ */
 fun maxOf(a: Int, b: Int): Int {
    if(a > b)
        return a
@@ -82,4 +101,37 @@ fun maxOf(a: Int, b: Int): Int {
        return b
 }
 
+/*
+    条件语句--表达式形式
+ */
 fun maxOfWithExpression(a: Int, b: Int) = if(a > b) a else b
+
+/*
+    返回类型可能会空的情况
+ */
+fun parseInt(str: String): Int? {
+    return str.toIntOrNull()
+}
+
+/*
+    如何判断null
+ */
+fun printProduct(arg1: String, arg2: String){
+    val x = parseInt(arg1)
+    val y = parseInt(arg2)
+
+    if (x != null && y !== null) {
+        println(x * y)
+    } else {
+        println("either '$arg1' or '$arg2' is not a number")
+    }
+}
+
+/*
+    is 操作符来判断是否属于某个类型
+ */
+fun getStringLength(obj: Any): Int? {
+    if(obj is String)
+        return obj.length
+    return null
+}
