@@ -87,7 +87,7 @@ fun main(args: Array<String>) {
     //<editor-fold desc="通过in操作符判断范围">
     val x1 = 10
     val y = 9
-    if (x1 in 1 .. y + 1) {
+    if (x1 in 1..y + 1) {
         println("fits in range")
     }
     //</editor-fold>
@@ -105,10 +105,69 @@ fun main(args: Array<String>) {
     //</editor-fold>
 
     //<editor-fold desc="循环迭代范围">
-    for( x in 0..5){
-        println(x)
+    for (x1 in 0..5) {
+        println(x1)
     }
     //</editor-fold>
+
+    //<editor-fold desc="for循环应用范围">
+    for (x2 in 1..10 step 2) {
+        println(x2)
+    }
+
+    for (x3 in 9 downTo 0 step 3) {
+        println(x3)
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="迭代List">
+    iterList()
+    //</editor-fold>
+
+    //<editor-fold desc="检查对象是否在List中">
+    checkObjectInList()
+    //</editor-fold>
+
+    //<editor-fold desc="Lambda表达式实例">
+    lambda()
+    //</editor-fold>
+
+    //<editor-fold desc="对象实例">
+    val rectangle = Rectangle(5.0, 2.0) //实例化一个对象,不需要new关键字
+    val triangle = Triangle(3.0, 4.0, 5.0)
+    println("Area of rectangle is ${rectangle.calculateArea()},its perimeter is ${rectangle.perimeter}")
+    println("Area of triangle is ${triangle.calculateArea()}, its perimeter is ${triangle.perimeter}")
+    //</editor-fold>
+    
+
+}
+
+fun lambda() {
+    println("Lambda 表达式")
+    val fruits = listOf<String>("banana", "avocado", "apple", "kiwi")
+    fruits
+            .filter { it.startsWith("a") }
+            .sortedBy { it }
+            .map { it.toUpperCase() }
+            .forEach { println(it) }
+}
+
+fun checkObjectInList() {
+    val items = listOf<String>("orange", "apple", "string", "demo")
+    when {
+        "orange" in items -> println("orange juicy")
+        "apple" in items -> println("apple is fine too")
+    }
+}
+
+/*
+    迭代list
+ */
+fun iterList() {
+    val item = listOf<String>("apple", "banana", "car", "cat")
+    for (it in item) {
+        println(it)
+    }
 }
 
 
@@ -201,3 +260,33 @@ fun describe(obj: Any): String =
             else -> "Unknown"
         }
 
+
+abstract class Shape(val sides: List<Double>){
+    val perimeter: Double get()=sides.sum()
+    abstract fun calculateArea(): Double
+}
+
+interface RectangleProperties{
+    val isSquare: Boolean
+}
+
+class Rectangle(
+    var height: Double,
+    var length: Double
+): Shape(listOf(height,length,height,length)),RectangleProperties{
+    override val isSquare: Boolean
+        get() = length == length
+
+    override fun calculateArea(): Double = length * length
+}
+
+class Triangle(
+        var sideA: Double,
+        var sideB: Double,
+        var sideC: Double
+) : Shape(listOf(sideA, sideB, sideC)) {
+    override fun calculateArea(): Double {
+        val s = perimeter / 2
+        return Math.sqrt( s * ( s - sideA) * ( s - sideB) * ( s- sideC ))
+    }
+}
