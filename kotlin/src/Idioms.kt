@@ -1,6 +1,9 @@
 package my.demo
 
 import java.io.File
+import java.lang.Exception
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.util.*
 
 fun main(args: Array<String>) {
@@ -84,6 +87,20 @@ fun main(args: Array<String>) {
     //<editor-fold desc="判空示例">
     ifNullable()
     //</editor-fold>
+
+    //<editor-fold desc="如果不为空,执行结构体">
+    ifNotNullLet()
+    //</editor-fold>
+
+    var arry = arrayOfMinusOnes(5)
+    for (item in arry) {
+        println(item)
+    }
+
+    //<editor-fold desc="java 7 语法,try-with-resource">
+    tryWithResource("/proc/cpuinfo")
+    //</editor-fold>
+
 }
 
 fun String.spaceToCamelCase(){
@@ -148,8 +165,78 @@ fun ifNullable(){
     values?.let {
         println("目标不为空时,执行相关操作")
     }
-    val age = values["age"] ?: throw IllegalStateException("Age is missing!")//抛出异常,之后的代码不会执行
-
+//    val age = values["age"] ?: throw IllegalStateException("Age is missing!")//抛出异常,之后的代码不会执行
 }
+
+fun ifNotNullLet(){
+    val value = "if not null ,then execute"
+    value?.let {
+        println(value)
+    }
+}
+
+fun returnOnWhenStatement(color: String): Int{
+    return when(color){
+        "Red" -> 0
+        "Green" -> 1
+        else -> throw IllegalArgumentException("Invalid color pargram value")
+    }
+}
+
+fun tryCatchExpression(param: Int) {
+    val result = try {
+
+    } catch (e: Exception) {
+        throw IllegalArgumentException(e)
+    }
+}
+
+fun ifExperssion(param: Int){
+    var result = if (param == 1) {
+        "one"
+    } else if(param == 2){
+        "two"
+    } else{
+        "three"
+    }
+}
+
+fun arrayOfMinusOnes(size: Int): IntArray{
+    return kotlin.IntArray(size).apply { fill(-1) }
+}
+
+/*
+    表达式形式的函数
+ */
+fun singleExperssion() = 42
+
+fun singleExperssion2(): Int{
+    return 42
+}
+
+/*
+    通过组合其他语法,是代码变得更短
+ */
+fun transform(color: String): Int = when (color) {
+    "Red" -> 0
+    "Green" -> 1
+    "Blue" -> 2
+    else -> throw IllegalArgumentException("Invalid color param value")
+}
+
+/*
+    java 7`s try with resources
+ */
+fun tryWithResource(filePath: String){
+    val stream = Files.newInputStream(Paths.get(filePath))
+    stream.buffered().reader().use{
+        reader ->println(reader.readText())
+    }
+}
+
+fun nullableBoolean(){
+    val b: Boolean? = true
+}
+
 
 
