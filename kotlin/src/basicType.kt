@@ -6,6 +6,7 @@ package my.demo
 fun main(args: Array<String>) {
     numbersExpression()
     charactersExpression()
+    booleansExpression()
 }
 
 
@@ -125,4 +126,15 @@ fun charactersExpression() {
         }
      */
 
+}
+
+
+/**
+ * 布尔型
+ */
+fun booleansExpression(){
+
+    /*
+    和其他数据类型一样,布尔型也是装箱的,其值为true false
+     */
 }
