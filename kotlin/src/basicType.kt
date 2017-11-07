@@ -5,7 +5,9 @@ package my.demo
  */
 fun main(args: Array<String>) {
     numbersExpression()
+    charactersExpression()
 }
+
 
 /*
     Numbers--数值型
@@ -71,10 +73,37 @@ fun numbersExpression() {
 
     toPrintlnNumber(listOf(decimals, longInt, hexaDecimals, binaries, doublenum, floatnum, oneMillion, hexBytes, bytes,
             x))
+
+    /*
+        浮点型
+        1. 是否相等: a == b     a != b
+        2. 比较运算符: a < b     a > b   a <= b  a >= b
+        3. 范围区间: a..b   x in a..b    x !in a..b
+        浮点运算遵循 IEEE 754
+
+        当浮点类型比较的对象不是静态类型时,应当实现equals和comparable接口,如:Any
+        通常约定:
+        NaN 和它自己相等
+        NaN 大于任何数值型数据
+        -0.0 比 0.0 小
+     */
 }
 
+/**
+ * 输出数字集合
+ */
 fun toPrintlnNumber(list: List<Number>) {
     for (item in list) {
         println(item)
     }
+}
+
+
+/**
+ * 字符型数据
+ */
+fun charactersExpression() {
+    /*
+        在kotlin中,字符型数据不能当做数字
+     */
 }
