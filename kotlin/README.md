@@ -9,3 +9,5 @@ grammar_cjkRuby: true
 ---|---
 basicSyntax|kotlin基本语法合集
 idioms|常用方法合集
+basicType|Kotlin中基本数据类型
+codeConvertions|数据类型转换

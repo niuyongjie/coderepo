@@ -147,7 +147,7 @@ fun arrayExpression(){
     val array1 = arrayOf(1, 2, 3, 4, 5)
     val array2 = arrayOfNulls<Int>(10)//创建大小为10的空数组
     val array3 = Array(5, { i -> (i * i).toString() })//利用构造方法和小标创建数组
-    
+
 
 
 }
