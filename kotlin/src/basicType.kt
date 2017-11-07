@@ -106,4 +106,23 @@ fun charactersExpression() {
     /*
         在kotlin中,字符型数据不能当做数字
      */
+
+    var c = 'a'
+    println(c)
+//    if (c == 1) {  //错误:操作符不能作用与字符和数值型数据之间
+//
+//    }
+
+
+    /*
+        字符类型用一对单引号括起来: '1'
+        Kotlin支持一下字符:\t , \b , \n , \r , \' , \" , \\ and \$
+        字符数字转数值型
+        fun decimalDigitValue(c: Char): Int{
+            if( c !in '0'..'9')
+                throw IllegalArgumentException("Out of Range");
+            return c.toInt() - '0'.toInt();
+        }
+     */
+
 }
