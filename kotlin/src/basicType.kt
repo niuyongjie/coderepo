@@ -170,4 +170,37 @@ fun stringExpression() {
 
     //转义字符串
     val s = "HELLO WORLD!\n"
+    print(s)
+
+    //raw String
+    val text = """
+        fun (c in str)
+            println(c)
+        """
+    print(text)
+
+    //通过"|"清楚掉行首的空格
+    val text2 = """
+        |Tell me and I forget.
+        |   Teach me and I remember.
+        |Involve me and I learn.
+        |(Benjamin Franklin)
+        """
+    println(text2)
+    println(text2.trimMargin("|"))
+
+    //字符串模板,通过$符号来替换掉模板中的值,甚至可以调用方法
+    val i = 10
+    val si = "i is $i"
+    println(si)
+
+    val ss = "abc"
+    val strs = "${ss.length} is $ss.length"
+    println(strs)
+
+    //输出$符号
+    println("""
+        ${'$'} 9.99
+        """)
+
 }
