@@ -7,6 +7,7 @@ fun main(args: Array<String>) {
     numbersExpression()
     charactersExpression()
     booleansExpression()
+    stringExpression()
 }
 
 
@@ -69,7 +70,7 @@ fun numbersExpression() {
         xor      | bitwise xor
         inv      | bitwise inversion
      */
-    val x = ( 1 shl 2 ) and 0x00_0F_F0_00 //shift left 左移
+    val x = (1 shl 2) and 0x00_0F_F0_00 //shift left 左移
 
 
     toPrintlnNumber(listOf(decimals, longInt, hexaDecimals, binaries, doublenum, floatnum, oneMillion, hexBytes, bytes,
@@ -132,7 +133,7 @@ fun charactersExpression() {
 /**
  * 布尔型
  */
-fun booleansExpression(){
+fun booleansExpression() {
 
     /*
     和其他数据类型一样,布尔型也是装箱的,其值为true false
@@ -142,13 +143,31 @@ fun booleansExpression(){
 /**
  * 数组演示
  */
-fun arrayExpression(){
+fun arrayExpression() {
     //1.创建数组
     val array1 = arrayOf(1, 2, 3, 4, 5)
     val array2 = arrayOfNulls<Int>(10)//创建大小为10的空数组
     val array3 = Array(5, { i -> (i * i).toString() })//利用构造方法和小标创建数组
 
-
-
+    /*
+        在Kotlin中,数组是不可变的,也就是说不能讲Array<String> 指定给Array<Any>类型的数组
+     */
+    val x: IntArray = intArrayOf(1, 2, 3, 4, 5, 6)
 }
 
+/**
+ * 字符串演示
+ */
+fun stringExpression() {
+    /*
+        字符串是不可变的,本质是一个字符数组,所以可以用下标的形式操作
+     */
+    val str = "这是一个字符串示例"
+    for (c in str) {
+        println(c)
+    }
+    println("下标的形式操作字符串: " + str[3])
+
+    //转义字符串
+    val s = "HELLO WORLD!\n"
+}
