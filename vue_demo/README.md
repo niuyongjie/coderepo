@@ -1,6 +1,6 @@
-# vue_test
+# demo
 
-> this is demo for vue
+> this is a vue demo
 
 ## Build Setup
 
