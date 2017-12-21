@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue 测试</title>
+    <script src="js/vue.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+<div id="app">
+    <button v-on:click="show =!show">Toggle</button>
+    <transition name="slide-fade">
+        <p v-if="show" :style="customStyle">hello</p>
+    </transition>
+</div>
+
+<script src="js/index.js"></script>
+</body>
+</html>
