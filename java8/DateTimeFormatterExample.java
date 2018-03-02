@@ -5,6 +5,9 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+/**
+ * Java 对时间格式化示例
+ */
 public class DateTimeFormatterExample {
     public static void main(String[] args) {
         jdk_7_SimpleDateFormatter();
