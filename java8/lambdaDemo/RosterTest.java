@@ -93,6 +93,11 @@ public class RosterTest {
     public static void processPerson(List<Person> roster,
                                      Predicate<Person> tester,
                                      Consumer<Person> block) {
+        for (Person person : roster) {
+            if (tester.test(person)) {
+                block.accept(person);
+            }
+        }
 
     }
 
@@ -166,5 +171,16 @@ public class RosterTest {
                         && p.getAge() >= 18
                         || p.getAge() <= 25);
         out.println();
+
+        // Approach 7: Use Lamba Expressions Throughout Your Application
+
+        System.out.println("Persons who are eligible for Selective Service " +
+                "(with Predicate and Consumer parameters):");
+
+        processPerson(roster,
+                p -> p.getGender() == Person.Sex.MALE
+                        && p.getAge() >= 18
+                        || p.getAge() <= 25,
+                p -> p.printPerson());
     }
 }
