@@ -14,11 +14,16 @@ public class LambdaScopeTest {
         public int x = 1;
 
         void methodInFirstLevel(int x) {
-            // The following statement causes the compiler to generate
+            // 1. The following statement causes the compiler to generate
             // the error "local variables referenced from a lambda expression
             // must be final or effectively final" in statement A:
             //
             // x = 99;
+
+            //2. If you substitute the parameter x in place of y in the
+            //declaration of the lambda expression myConsumer,
+            // then the compiler generates an error:
+            // The compiler generates the error "variable x is already defined
 
             Consumer<Integer> consumer = (y) -> {
                 out.println("x = " + x);
