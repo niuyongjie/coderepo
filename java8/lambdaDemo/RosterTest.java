@@ -2,6 +2,7 @@ package lambdaDemo;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static java.lang.System.out;
@@ -85,10 +86,12 @@ public class RosterTest {
     }
 
     /**
-     * 方法 7 :
+     * 方法 7 - 1 :
      * 使用 JDK 提供的标准功能接口, 替换方法 6 中的逻辑代码
-     * 方法 6 中逻辑代码的特征( if 语句 ), 有一个参数 Person , 无返回值
-     * https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html
+     * 注意： 方法 6 中逻辑代码的特征( if 语句 ), 有一个参数 Person , 无返回值
+     * 好处：
+     * 将原来固定的 if 语句写的更加灵活, 因为真正的逻辑代码实在调用者那里完成的,
+     * 此处的代码是面向接口的.
      */
     public static void processPerson(List<Person> roster,
                                      Predicate<Person> tester,
@@ -96,6 +99,44 @@ public class RosterTest {
         for (Person person : roster) {
             if (tester.test(person)) {
                 block.accept(person);
+            }
+        }
+
+    }
+
+    /**
+     * 方法 7 - 2 :
+     * 展示功能接口 Function<T, R> 的作用, 接收参数 T , 返回结果 R .
+     */
+    public static void processPersonWithFunction(
+            List<Person> roster,
+            Predicate<Person> tester,
+            Function<Person, String> mapper,
+            Consumer<String> block) {
+        for (Person p : roster) {
+            if (tester.test(p)) {
+                String data = mapper.apply(p);
+                block.accept(data);
+            }
+        }
+    }
+
+    /**
+     * 方法 8 :
+     * 通用性版本 : 使用范型
+     * 好处:
+     * 更加抽象化, 能够适应多种场合. 因为: 具体的类型都是由调用者出入确定的.
+     * 进化版参见 main() 方法中的 方法 9.
+     */
+    public static <X, Y> void processElements(
+            Iterable<X> sources,
+            Predicate<X> tester,
+            Function<X, Y> mapper,
+            Consumer<Y> block) {
+        for (X p : sources) {
+            if (tester.test(p)) {
+                Y data = mapper.apply(p);
+                block.accept(data);
             }
         }
 
@@ -172,7 +213,7 @@ public class RosterTest {
                         || p.getAge() <= 25);
         out.println();
 
-        // Approach 7: Use Lamba Expressions Throughout Your Application
+        // Approach 7 - 1 : Use Lamba Expressions Throughout Your Application
 
         System.out.println("Persons who are eligible for Selective Service " +
                 "(with Predicate and Consumer parameters):");
@@ -182,5 +223,51 @@ public class RosterTest {
                         && p.getAge() >= 18
                         || p.getAge() <= 25,
                 p -> p.printPerson());
+        out.println();
+
+        // Approach 7 - 2 : second example
+        out.println("Persons who ate eligible for Selective Service " +
+                "(with Predicate, Function, and Consumer Parameters): ");
+        processPersonWithFunction(
+                roster,
+                p -> p.getGender() == Person.Sex.MALE
+                        && p.getAge() >= 18
+                        || p.getAge() <= 25,
+                p -> p.getEmailAddress(),
+                email -> out.println(email)
+        );
+        out.println();
+
+        // Approach 8 : Use Generics More Extensively
+
+        out.println("Perons who are eligible for Selective Serice " +
+                "(generics version): ");
+        processElements(
+                roster,
+                p -> p.getGender() == Person.Sex.MALE
+                        && p.getAge() >= 18
+                        || p.getAge() < 25,
+                p -> p.getEmailAddress(),
+                email -> out.println(email));
+        out.println();
+
+        /**
+         * 方法 9:
+         * 利用聚合操作, 接受 Lambda 表达式参数
+         * 其中, filter, map, forEach 都是聚合操作.
+         * 聚合操作从 stream 中获取元素, 而不是 collection.
+         * 聚合一般接受 Lambda 表示作为参数,能够让我们更好的操作数据的行为.
+         */
+
+        out.println("Persons who are eligible for Selective Service " +
+                "(with bulk data operations):");
+
+        roster.
+                stream()
+                .filter(p -> p.getGender() == Person.Sex.MALE
+                        && p.getAge() >= 18
+                        || p.getAge() <= 25)
+                .map(p -> p.getEmailAddress())
+                .forEach(email -> out.println(email));
     }
 }

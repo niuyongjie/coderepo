@@ -19,3 +19,4 @@ HexByte|右移操作符使用位移前的高阶位的值填补位移后的高阶
 ByteUShift|无符号右移会自动讲数值提升为32位，高阶位补零
 DateTimeFormatterExample|时间格式化示例
 StreamDemo|Stream 操作数组示例
+LambdaDemo|从一个方法的演变过程理解Lambda表达式的诞生的意义
